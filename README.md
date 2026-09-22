@@ -4,7 +4,7 @@ A small native macOS 15+ app with one deadline-based timer, a six-item world-clo
 
 ## Local installation (no Apple Developer account)
 
-The repository includes a locally ad-hoc-signed Apple Silicon build. Open [`dist/WEST-time-and-timer-local-arm64.dmg`](dist/WEST-time-and-timer-local-arm64.dmg), drag the app to Applications, and launch it. The app bundle includes the timer, clocks, WidgetKit extension, App Intents, localizations, and all runtime resources; users do not need Xcode, Homebrew, Swift, or any third-party dependency.
+Download `WEST-time-and-timer-local-arm64.dmg` from [GitHub Releases](https://github.com/shilovpm/west-time-and-timer/releases), open it, drag the app to Applications, and launch it. The app bundle includes the timer, clocks, WidgetKit extension, App Intents, localizations, and all runtime resources; users do not need Xcode, Homebrew, Swift, or any third-party dependency.
 
 The local build is not Developer ID signed or notarized. On first launch after downloading it, macOS may require **System Settings → Privacy & Security → Open Anyway**. This approval is a Gatekeeper step for an unidentified developer, not a missing dependency. The current DMG requires macOS 15 or newer and an Apple Silicon Mac.
 
@@ -17,6 +17,8 @@ scripts/package-local-dmg.sh
 ```
 
 `scripts/build-xcode-local.sh` makes a Release build without provisioning, verifies the generated App Intents metadata, and ad-hoc signs the app and extension for this Mac. The local build uses `~/Library/Application Support/WEST time and timer Shared` so the app and widget can share state without a registered App Group. `scripts/build-local.sh` remains a Command Line Tools fallback; its widgets do not contain configurable App Intents.
+
+`scripts/package-local-dmg.sh` writes the reproducible local artifact and its SHA-256 file to the ignored `dist/` directory. Release maintainers upload those two files to GitHub Releases.
 
 You can also open `WEST.xcodeproj`, select the shared `WEST` scheme, and Run. A distribution build with an Apple team should copy `Config/Signing.example.xcconfig`, use a registered App Group, and disable the local shared-storage switch.
 

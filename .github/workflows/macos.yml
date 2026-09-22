@@ -1,0 +1,13 @@
+name: macOS
+on: [push, pull_request]
+jobs:
+  build:
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Core and interprocess checks
+        run: scripts/test-core.sh
+      - name: Build app and widgets
+        run: xcodebuild -project WEST.xcodeproj -scheme WEST -configuration Debug -derivedDataPath build/ci CODE_SIGNING_ALLOWED=NO build
+      - name: XCTest
+        run: xcodebuild -project WEST.xcodeproj -scheme WEST -configuration Debug -derivedDataPath build/ci CODE_SIGNING_ALLOWED=NO test

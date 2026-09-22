@@ -8,6 +8,17 @@ Download `WEST-time-and-timer-local-arm64.dmg` from [GitHub Releases](https://gi
 
 The local build is not Developer ID signed or notarized. On first launch after downloading it, macOS may require **System Settings → Privacy & Security → Open Anyway**. This approval is a Gatekeeper step for an unidentified developer, not a missing dependency. The current DMG requires macOS 15 or newer and an Apple Silicon Mac.
 
+### Compatibility
+
+| System | Status |
+| --- | --- |
+| Apple Silicon Mac, macOS 15 or newer | Supported. The release artifact is an arm64 DMG; version 1.0.3 was built and verified on macOS 27.0. |
+| Intel Mac | Not supported by the current release artifact. No universal or x86_64 DMG is provided. |
+| macOS 14 or older | Not supported. The deployment target is macOS 15. |
+| iPhone, iPad, Windows, or Linux | Not supported. This is a native macOS app. |
+
+The DMG is self-contained. Running the app and widgets does not require Xcode, Homebrew, Swift, an Apple Developer account, or any third-party package.
+
 To rebuild the complete app and WidgetKit extension with the installed Xcode:
 
 ```bash
@@ -45,7 +56,7 @@ You can also open `WEST.xcodeproj`, select the shared `WEST` scheme, and Run. A 
 
 ## Verification
 
-See [`docs/VERIFICATION.md`](docs/VERIFICATION.md). On the current machine, the full Xcode build, 19 core checks, installed app, approved layout, time-zone rendering, extension signature and registration, App Intents metadata, and discovery of all four variants in the macOS widget gallery pass. The unresolved notification-banner icon and per-widget clock selection are documented follow-ups.
+See [`docs/VERIFICATION.md`](docs/VERIFICATION.md). On the current machine, the full Xcode build, 19 core checks, installed app, approved layout, time-zone rendering, extension signature and registration, App Intents metadata, and discovery of all four variants in the macOS widget gallery pass. The macOS 27 dark-widget regression is verified against an installed widget. The notification-banner icon and per-widget clock selection remain documented follow-ups.
 
 ## Privacy
 

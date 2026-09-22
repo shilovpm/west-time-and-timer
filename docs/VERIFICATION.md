@@ -1,6 +1,6 @@
 # Verification record
 
-Date: 2026-09-22. Test host: Apple Silicon, macOS 26.6.2, Xcode 27.0 (build 27A266a), Swift 6.3.3.
+Date: 2026-09-22. Test host: Apple Silicon, macOS 27.0 (build 26A428), Xcode 27.0 (build 27A266a), Swift 6.3.3.
 
 ## Passed
 
@@ -11,7 +11,7 @@ Date: 2026-09-22. Test host: Apple Silicon, macOS 26.6.2, Xcode 27.0 (build 27A2
 - Real app launch: the main window opens. Berlin and the independent CEST record coexist and both show `UTC+02:00` and `+1 h` relative to Lisbon. The 1-second timer reaches `00:00:00`, changes to `finished`, and exposes Repeat without counting upward. After quit and relaunch, the two records, Russian setting, one-second duration, and finished state restore from the shared file. The settings show 11 manual language choices and Russian immediately updates the window. Notification authorization status is read from macOS.
 - Regression verification for world-clock rendering: with the Mac on Lisbon time, a real app window simultaneously showed Lisbon 15:12, CEST 16:12, and EEST 17:12 with differences `0 ч`, `+1 ч`, and `+2 ч`. The display now uses `ZonedTimeStyle`, a dynamic `DiscreteFormatStyle` that applies each saved IANA identifier directly.
 - Approved UI regression: the real 840+ pt window shows the large timer at upper left, three aligned control rows at upper right, in-field units, the short `Задать` button without wrapping, and world-clock timeline rows ordered identity → time → difference → one management capsule.
-- Dark appearance changes only the adaptive palette used by the existing views. The layout tree, sizes, spacing, SF Symbols, commands, and state logic are unchanged. A Debug build of both the app and widget extension passed for arm64 and x86_64 after the palette change.
+- Dark appearance changes only the color palette used by the existing views. The layout tree, sizes, spacing, SF Symbols, commands, and state logic are unchanged. After macOS 27 stopped resolving the previous runtime `NSColor` provider inside WidgetKit, the same approved light and dark values were moved to named Color Assets with Any/Dark variants. The installed World clocks widget was visually verified with a dark background under the system dark appearance. The compiled app and widget-extension asset catalogs each contain all six light/dark color pairs. Debug XCTest and the arm64 Release build pass after the change.
 - String Catalog audit: all 57 interface and error keys have translations in all 11 supported languages. State-storage and timer-validation errors now resolve through the app's selected language. `xcstringstool` validation and the full Debug build pass.
 - Icon verification: `AppIcon.icns` is generated from the approved `icon-b-selected-white.png`, not the rejected SVG. Both source and extracted 1024 px representation report the sRGB profile and preserve alpha outside the rounded-square silhouette. The final app and widget-extension bundles both contain `AppIcon.icns`, and both `Info.plist` files resolve `CFBundleIconFile` to `AppIcon`; the local build script now treats either missing resource as a failure.
 - Installed bundle: `/Applications/WEST time and timer.app` launches through Launch Services, restores shared state, and passes strict deep signature verification. `pluginkit -m -A -D -vvv -i local.westtime.app.widgets` reports exactly one macOS WidgetKit extension at the installed path with the correct parent bundle and display name.
@@ -20,8 +20,8 @@ Date: 2026-09-22. Test host: Apple Silicon, macOS 26.6.2, Xcode 27.0 (build 27A2
 - Installed-widget regression: the existing large world-clock widget loaded a 31-entry timeline and advanced from view sequence 27 to 29 across a minute boundary. Notification Center reported `LIVE` and `Cached [Live] view assigned` with no `noType` or `could not decode view` error. The clock provider now reads the app's shared ordered clock list directly; the same provider and row view are used by medium and large families.
 - Timer-widget regression: the installed small timer widget loaded successfully as `LIVE` and advanced after shared timer changes. Its controls now use an explicit rendering-mode-aware style and full-color SF Symbol rendering, so play/pause remains distinct from the button fill in full-color, accented, and vibrant modes.
 - Widget-open regression: both widgets carry `westtime://` URLs. The app handles those URLs by opening the main scene, activating the process, deminiaturizing any main/key window, and bringing it forward; Launch Services accepted `westtime://clocks` against the installed build while the app was running.
-- Notification regression: a real one-second timer generated request `west.timer`; Notification Center added it to history for `local.westtime.app`. The alert banner was suppressed by the host's `display shared` state, so visual banner inspection was unavailable, but icon lookup is backed by the verified `AppIcon.icns` resources in both bundles.
-- `scripts/package-local-dmg.sh`: rebuilds the full Xcode product, packages the app, and emits `dist/WEST-time-and-timer-local-arm64.dmg`. `hdiutil verify`, the recorded SHA-256 check, App Intents metadata check, and strict deep signature verification pass. Version 1.0.3 (build 7) SHA-256: `d569267989dfe69d504635ae73dc692586e926e6249f85bf2e1630afc49e3603`.
+- Notification regression: a real one-second timer generated request `west.timer`; Notification Center added it to history for `local.westtime.app`. The notification banner still shows a generic placeholder instead of the approved application icon; this remains intentionally on hold.
+- `scripts/package-local-dmg.sh`: rebuilds the full Xcode product, packages the app, and emits `dist/WEST-time-and-timer-local-arm64.dmg`. `hdiutil verify`, the recorded SHA-256 check, App Intents metadata check, and strict deep signature verification pass. Version 1.0.3 (build 7) SHA-256: `0d3aca14f601a718d2b3103547ea93cdf2e5696d7f2541239afb55f7d2d065e2`.
 - The generated app includes 11 localized `Localizable.strings` resources in each product bundle.
 
 ## Not executed / environment limits
@@ -29,9 +29,9 @@ Date: 2026-09-22. Test host: Apple Silicon, macOS 26.6.2, Xcode 27.0 (build 27A2
 - Direct visual inspection of a medium world-clock instance was not available on the test desktop. Its data path and layout are shared with the verified live large instance.
 - Six-row large-widget legibility, long-name stress, RTL widget layout, second rendering under energy saving, interactive-button latency, and derived-label update latency after changing the Mac zone while the app is closed.
 - VoiceOver session, sleep/wake, notification delivery after quit/relaunch, Focus behavior, or a manual system-clock correction. Basic state restoration after quit/relaunch did pass.
-- Actual macOS 15 runtime. The source only compiled with a macOS 15 deployment target on macOS 26.6.2.
+- Actual macOS 15 runtime. The source compiled with a macOS 15 deployment target and the release was exercised on macOS 27.0.
 - Universal/x86_64 binary. The local DMG is arm64.
 - Developer ID, notarization, stapling, `spctl` distribution acceptance, and downloaded/quarantined clean-user/clean-Mac installation. The user selected a local-only build and has no Developer ID.
-- Per-widget selection of a saved-clock subset and the unresolved notification-banner icon are intentionally on hold.
+- Per-widget selection of a saved-clock subset, the notification-banner icon, and Developer ID distribution are intentionally on hold.
 
 The app uses `TimeDataSource.currentDate` for displayed clock digits and a bounded countdown interval. Metadata such as abbreviations and Mac-zone differences is recalculated in app timeline views and at exact DST transition entries in widget timelines; widgets also ask WidgetKit for a reload after 30 minutes. WidgetKit still owns actual refresh scheduling, so timing behavior remains a runtime measurement rather than a guaranteed refresh rate.

@@ -8,3 +8,5 @@ xcuserdata/
 *.p12
 *.mobileprovision
 Config/Signing.local.xcconfig
+PROMPT.md
+PLAN.md

@@ -16,7 +16,7 @@ def render(value):
     if isinstance(value, dict): return '{ '+' '.join(f'{render(k)} = {render(v)};' for k,v in value.items())+' }'
     return str(value)
 refs={}
-files=sorted([p.relative_to(root).as_posix() for p in (root/'WEST').rglob('*.swift')]+['WESTTests/CoreTests.swift','WEST/Resources/Localizable.xcstrings','WEST/Resources/AppIcon.icns','WEST/Resources/Assets.xcassets','Config/Local.xcconfig','Config/App.entitlements','Config/Widget.entitlements','Config/App-Info.plist','Config/Widget-Info.plist'])
+files=sorted([p.relative_to(root).as_posix() for p in (root/'WEST').rglob('*.swift')]+['WESTTests/CoreTests.swift','WEST/Resources/Localizable.xcstrings','WEST/Resources/AppIcon.icns','WEST/Resources/Assets.xcassets','WEST/Resources/ThemeColors.xcassets','Config/Local.xcconfig','Config/App.entitlements','Config/Widget.entitlements','Config/App-Info.plist','Config/Widget-Info.plist'])
 for path in files:
     typ='sourcecode.swift' if path.endswith('.swift') else 'text.json.xcstrings' if path.endswith('.xcstrings') else 'folder.assetcatalog' if path.endswith('.xcassets') else 'image.icns' if path.endswith('.icns') else 'text.xcconfig' if path.endswith('.xcconfig') else 'text.plist.xml'
     refs[path]=add('ref:'+path,'PBXFileReference',lastKnownFileType=typ,path=path,sourceTree='SOURCE_ROOT')
@@ -32,6 +32,7 @@ for name, product, product_type, paths in [
     res=[] if name=='WESTTests' else [raw(add('resource:'+name,'PBXBuildFile',fileRef=raw(refs['WEST/Resources/Localizable.xcstrings'])))]
     if name == 'WEST': res.append(raw(add('resource:'+name+':assets','PBXBuildFile',fileRef=raw(refs['WEST/Resources/Assets.xcassets']))))
     if name == 'WESTWidgets': res.append(raw(add('resource:'+name+':icon','PBXBuildFile',fileRef=raw(refs['WEST/Resources/AppIcon.icns']))))
+    if name != 'WESTTests': res.append(raw(add('resource:'+name+':theme-colors','PBXBuildFile',fileRef=raw(refs['WEST/Resources/ThemeColors.xcassets']))))
     resources=add('resources:'+name,'PBXResourcesBuildPhase',buildActionMask=2147483647,files=res,runOnlyForDeploymentPostprocessing=0)
     settings={'PRODUCT_NAME':'WEST time and timer' if name=='WEST' else name,'PRODUCT_MODULE_NAME':name,'PRODUCT_BUNDLE_IDENTIFIER':'local.westtime.app'+('' if name=='WEST' else '.widgets' if name=='WESTWidgets' else '.tests'), 'SDKROOT':'macosx', 'SUPPORTED_PLATFORMS':'macosx','SWIFT_VERSION':'5.0','MACOSX_DEPLOYMENT_TARGET':'15.0'}
     if name!='WESTTests': settings.update({'INFOPLIST_FILE':'Config/App-Info.plist' if name=='WEST' else 'Config/Widget-Info.plist','CODE_SIGN_ENTITLEMENTS':'Config/App.entitlements' if name=='WEST' else 'Config/Widget.entitlements','GENERATE_INFOPLIST_FILE':'NO','LD_RUNPATH_SEARCH_PATHS':['$(inherited)','@executable_path/../Frameworks','@executable_path/../../../../Frameworks']})

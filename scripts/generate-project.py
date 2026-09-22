@@ -35,7 +35,7 @@ for name, product, product_type, paths in [
     resources=add('resources:'+name,'PBXResourcesBuildPhase',buildActionMask=2147483647,files=res,runOnlyForDeploymentPostprocessing=0)
     settings={'PRODUCT_NAME':'WEST time and timer' if name=='WEST' else name,'PRODUCT_MODULE_NAME':name,'PRODUCT_BUNDLE_IDENTIFIER':'local.westtime.app'+('' if name=='WEST' else '.widgets' if name=='WESTWidgets' else '.tests'), 'SDKROOT':'macosx', 'SUPPORTED_PLATFORMS':'macosx','SWIFT_VERSION':'5.0','MACOSX_DEPLOYMENT_TARGET':'15.0'}
     if name!='WESTTests': settings.update({'INFOPLIST_FILE':'Config/App-Info.plist' if name=='WEST' else 'Config/Widget-Info.plist','CODE_SIGN_ENTITLEMENTS':'Config/App.entitlements' if name=='WEST' else 'Config/Widget.entitlements','GENERATE_INFOPLIST_FILE':'NO','LD_RUNPATH_SEARCH_PATHS':['$(inherited)','@executable_path/../Frameworks','@executable_path/../../../../Frameworks']})
-    else: settings.update({'GENERATE_INFOPLIST_FILE':'YES','TEST_HOST':'$(BUILT_PRODUCTS_DIR)/WEST time and timer.app/Contents/MacOS/WEST','BUNDLE_LOADER':'$(TEST_HOST)'})
+    else: settings.update({'GENERATE_INFOPLIST_FILE':'YES','TEST_HOST':'$(BUILT_PRODUCTS_DIR)/WEST time and timer.app/Contents/MacOS/WEST time and timer','BUNDLE_LOADER':'$(TEST_HOST)'})
     if name=='WEST': settings.update({'ASSETCATALOG_COMPILER_APPICON_NAME':'AppIcon','ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS':'NO'})
     if name=='WESTWidgets': settings.update({'APPLICATION_EXTENSION_API_ONLY':'YES','SKIP_INSTALL':'YES','SWIFT_ACTIVE_COMPILATION_CONDITIONS':'$(inherited) WEST_WIDGET_EXTENSION'})
     configs=[]

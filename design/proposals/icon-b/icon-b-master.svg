@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <title>WEST time and timer — Offset Lines</title>
+  <desc>Approved concept B. The icon background is color(srgb 0.994 0.994 0.994).</desc>
+  <path d="M244 54 C131 54 54 131 54 244 L54 780 C54 893 131 970 244 970 L780 970 C893 970 970 893 970 780 L970 244 C970 131 893 54 780 54 Z"
+        fill="color(srgb 0.994 0.994 0.994)" stroke="#EAE4F5" stroke-width="6"/>
+
+  <!-- Open countdown arc -->
+  <path d="M672 196 A330 330 0 1 0 682 824"
+        fill="none" stroke="#6F32D4" stroke-width="42" stroke-linecap="round"/>
+
+  <!-- Shared reference meridian -->
+  <path d="M508 292 L508 730" fill="none" stroke="#C9A9F6" stroke-width="20" stroke-linecap="round"/>
+
+  <!-- Three timezone offsets -->
+  <path d="M332 372 H682" fill="none" stroke="#3C176F" stroke-width="34" stroke-linecap="round"/>
+  <circle cx="706" cy="372" r="42" fill="#3C176F"/>
+
+  <path d="M286 512 H622" fill="none" stroke="#7132D5" stroke-width="34" stroke-linecap="round"/>
+  <circle cx="648" cy="512" r="42" fill="#7132D5"/>
+
+  <path d="M352 652 H570" fill="none" stroke="#A16AE8" stroke-width="34" stroke-linecap="round"/>
+  <circle cx="596" cy="652" r="42" fill="#A16AE8"/>
+
+  <!-- Discrete tail: time continuing beyond the arc -->
+  <circle cx="722" cy="792" r="17" fill="#8150DC"/>
+  <circle cx="764" cy="762" r="15" fill="#9363E3"/>
+  <circle cx="800" cy="726" r="13" fill="#A678E9"/>
+  <circle cx="830" cy="684" r="11" fill="#B68CEE"/>
+</svg>

@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1120" viewBox="0 0 1600 1120">
+  <defs>
+    <linearGradient id="accent" x1="0" x2="1"><stop stop-color="#9B45F5"/><stop offset="1" stop-color="#C47DFF"/></linearGradient>
+    <linearGradient id="appbg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#17131D"/><stop offset="1" stop-color="#1C1624"/></linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="160%"><feDropShadow dx="0" dy="22" stdDeviation="28" flood-color="#09070C" flood-opacity=".48"/></filter>
+    <style>
+      text{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",Arial,sans-serif;fill:#F8F5FB}
+      .muted{fill:#AAA0B4}.purple{fill:#C279FF}.label{font-size:17px;font-weight:600}.tiny{font-size:14px}.title{font-size:27px;font-weight:700}.time{font-size:70px;font-weight:650;letter-spacing:-2px}.clock{font-size:28px;font-weight:600}.city{font-size:19px;font-weight:650}.section{font-size:24px;font-weight:750}
+    </style>
+  </defs>
+  <rect width="1600" height="1120" fill="#0E0B12"/>
+  <text x="70" y="68" font-size="32" font-weight="750">WEST — тёмная тема</text>
+  <text x="70" y="101" font-size="17" class="muted">Тот же утверждённый интерфейс, системная тёмная палитра без изменения структуры и приоритетов.</text>
+
+  <!-- palette -->
+  <g transform="translate(1065 50)">
+    <circle cx="0" cy="0" r="13" fill="#17131D" stroke="#564665"/><circle cx="39" cy="0" r="13" fill="#241D2E"/><circle cx="78" cy="0" r="13" fill="#C279FF"/><circle cx="117" cy="0" r="13" fill="#F8F5FB"/><circle cx="156" cy="0" r="13" fill="#AAA0B4"/>
+    <text x="184" y="6" font-size="14" class="muted">warm black · elevated violet · accessible purple</text>
+  </g>
+
+  <!-- application -->
+  <g filter="url(#shadow)">
+    <rect x="65" y="145" width="1010" height="840" rx="30" fill="url(#appbg)" stroke="#3E324B"/>
+    <rect x="65" y="145" width="1010" height="76" rx="30" fill="#201A28"/>
+    <rect x="65" y="194" width="1010" height="27" fill="#201A28"/>
+    <circle cx="104" cy="183" r="9" fill="#FF5F57"/><circle cx="132" cy="183" r="9" fill="#FEBC2E"/><circle cx="160" cy="183" r="9" fill="#28C840"/>
+    <text x="205" y="192" font-size="23" font-weight="680">WEST time and timer</text>
+    <circle cx="1028" cy="183" r="23" fill="#2C2435"/><path d="M1018 183h20M1028 173v20" stroke="#C8BDCF" stroke-width="2" transform="rotate(45 1028 183)"/>
+
+    <!-- timer section -->
+    <text x="108" y="278" class="section">Таймер</text>
+    <text x="108" y="375" class="time">00:12:30</text>
+    <rect x="108" y="410" width="425" height="7" rx="4" fill="#3A3044"/><rect x="108" y="410" width="236" height="7" rx="4" fill="url(#accent)"/>
+
+    <!-- right controls -->
+    <g transform="translate(600 268)">
+      <rect width="188" height="48" rx="12" fill="url(#accent)"/><text x="94" y="31" text-anchor="middle" class="label">Пауза</text>
+      <rect x="202" width="188" height="48" rx="12" fill="#30263B"/><text x="296" y="31" text-anchor="middle" class="label purple">Сброс</text>
+      <g transform="translate(0 64)">
+        <rect width="88" height="43" rx="11" fill="#2B2235"/><text x="44" y="28" text-anchor="middle" class="label purple">5 мин</text>
+        <rect x="101" width="88" height="43" rx="11" fill="#2B2235"/><text x="145" y="28" text-anchor="middle" class="label purple">15 мин</text>
+        <rect x="202" width="88" height="43" rx="11" fill="#2B2235"/><text x="246" y="28" text-anchor="middle" class="label purple">25 мин</text>
+        <rect x="303" width="88" height="43" rx="11" fill="#2B2235"/><text x="347" y="28" text-anchor="middle" class="label purple">60 мин</text>
+      </g>
+      <g transform="translate(0 124)">
+        <rect width="88" height="46" rx="11" fill="#1A1620" stroke="#8F54C7"/><text x="20" y="29" class="label">0</text><text x="50" y="29" class="tiny purple">ч</text><path d="M70 19l5 5 5-5" fill="none" stroke="#C279FF" stroke-width="2"/>
+        <rect x="101" width="88" height="46" rx="11" fill="#1A1620" stroke="#8F54C7"/><text x="121" y="29" class="label">12</text><text x="151" y="29" class="tiny purple">мин</text><path d="M171 19l5 5 5-5" fill="none" stroke="#C279FF" stroke-width="2"/>
+        <rect x="202" width="88" height="46" rx="11" fill="#1A1620" stroke="#8F54C7"/><text x="222" y="29" class="label">30</text><text x="252" y="29" class="tiny purple">с</text><path d="M272 19l5 5 5-5" fill="none" stroke="#C279FF" stroke-width="2"/>
+        <rect x="303" width="88" height="46" rx="11" fill="#241B2D" stroke="#C279FF"/><text x="347" y="29" text-anchor="middle" class="label purple">Задать</text>
+      </g>
+    </g>
+
+    <line x1="108" y1="495" x2="1032" y2="495" stroke="#453452"/>
+    <text x="108" y="552" class="section">Мировые часы</text>
+    <rect x="975" y="519" width="57" height="42" rx="11" fill="#2B2235"/><text x="1004" y="548" text-anchor="middle" font-size="28" class="purple">+</text>
+
+    <!-- world clock timeline -->
+    <line x1="129" y1="616" x2="129" y2="866" stroke="#A75AF0" stroke-width="3"/>
+    <g>
+      <circle cx="129" cy="637" r="9" fill="#B965FF"/>
+      <text x="166" y="631" class="city">Lisbon</text><text x="166" y="655" class="tiny muted">WEST · UTC+01:00</text>
+      <text x="620" y="646" class="clock">11:20</text><text x="745" y="640" class="label purple">0 ч</text>
+      <rect x="886" y="613" width="146" height="48" rx="24" fill="#261E30" stroke="#4B3A59"/><text x="919" y="644" font-size="22" class="purple">↑</text><text x="957" y="644" font-size="22" class="purple">↓</text><text x="998" y="644" font-size="20" class="purple">⌫</text>
+      <line x1="166" y1="688" x2="1032" y2="688" stroke="#372B42"/>
+    </g>
+    <g>
+      <circle cx="129" cy="735" r="9" fill="#B965FF"/>
+      <text x="166" y="729" class="city">CEST</text><text x="166" y="753" class="tiny muted">UTC+02:00</text>
+      <text x="620" y="744" class="clock">12:20</text><text x="745" y="738" class="label purple">+1 ч</text>
+      <rect x="886" y="711" width="146" height="48" rx="24" fill="#261E30" stroke="#4B3A59"/><text x="919" y="742" font-size="22" class="purple">↑</text><text x="957" y="742" font-size="22" class="purple">↓</text><text x="998" y="742" font-size="20" class="purple">⌫</text>
+      <line x1="166" y1="786" x2="1032" y2="786" stroke="#372B42"/>
+    </g>
+    <g>
+      <circle cx="129" cy="833" r="9" fill="#B965FF"/>
+      <text x="166" y="827" class="city">EEST</text><text x="166" y="851" class="tiny muted">UTC+03:00</text>
+      <text x="620" y="842" class="clock">13:20</text><text x="745" y="836" class="label purple">+2 ч</text>
+      <rect x="886" y="809" width="146" height="48" rx="24" fill="#261E30" stroke="#4B3A59"/><text x="919" y="840" font-size="22" class="purple">↑</text><text x="957" y="840" font-size="22" class="purple">↓</text><text x="998" y="840" font-size="20" class="purple">⌫</text>
+    </g>
+  </g>
+
+  <!-- widgets -->
+  <text x="1130" y="178" class="title">Виджеты</text>
+  <g transform="translate(1125 215)" filter="url(#shadow)">
+    <rect width="405" height="300" rx="30" fill="#211A29" stroke="#41324F"/>
+    <text x="28" y="42" font-size="18" font-weight="700">Мировые часы</text>
+    <line x1="113" y1="79" x2="113" y2="236" stroke="#A75AF0" stroke-width="3"/>
+    <g transform="translate(0 0)"><text x="28" y="106" font-size="24" font-weight="650">11:20</text><circle cx="113" cy="98" r="8" fill="#B965FF"/><text x="139" y="96" class="city">Lisbon</text><text x="139" y="116" font-size="12" class="muted">WEST · UTC+01:00</text><text x="362" y="105" text-anchor="end" class="tiny purple">0 ч</text><line x1="139" y1="132" x2="372" y2="132" stroke="#3B2D47"/></g>
+    <g transform="translate(0 70)"><text x="28" y="106" font-size="24" font-weight="650">12:20</text><circle cx="113" cy="98" r="8" fill="#B965FF"/><text x="139" y="96" class="city">CEST</text><text x="139" y="116" font-size="12" class="muted">UTC+02:00</text><text x="362" y="105" text-anchor="end" class="tiny purple">+1 ч</text><line x1="139" y1="132" x2="372" y2="132" stroke="#3B2D47"/></g>
+    <g transform="translate(0 140)"><text x="28" y="106" font-size="24" font-weight="650">13:20</text><circle cx="113" cy="98" r="8" fill="#B965FF"/><text x="139" y="96" class="city">EEST</text><text x="139" y="116" font-size="12" class="muted">UTC+03:00</text><text x="362" y="105" text-anchor="end" class="tiny purple">+2 ч</text></g>
+  </g>
+
+  <g transform="translate(1125 555)" filter="url(#shadow)">
+    <rect width="190" height="190" rx="30" fill="#211A29" stroke="#41324F"/>
+    <text x="22" y="36" font-size="16" font-weight="700">Мировые часы</text>
+    <text x="18" y="91" font-size="27" font-weight="650">11:20</text><line x1="99" y1="61" x2="99" y2="146" stroke="#A75AF0" stroke-width="3"/><circle cx="99" cy="103" r="8" fill="#B965FF"/>
+    <text x="119" y="91" font-size="16" font-weight="650">Lisbon</text><text x="119" y="112" font-size="10" class="muted">WEST · UTC+01…</text><text x="119" y="137" font-size="13" class="purple">0 ч</text>
+  </g>
+  <g transform="translate(1340 555)" filter="url(#shadow)">
+    <rect width="190" height="190" rx="30" fill="#211A29" stroke="#41324F"/>
+    <text x="22" y="38" font-size="16" font-weight="700">Таймер</text>
+    <text x="22" y="86" font-size="31" font-weight="650">00:12:30</text>
+    <rect x="22" y="103" width="146" height="6" rx="3" fill="#3A3044"/><rect x="22" y="103" width="83" height="6" rx="3" fill="url(#accent)"/>
+    <rect x="22" y="128" width="67" height="42" rx="21" fill="url(#accent)"/><text x="56" y="156" text-anchor="middle" font-size="20">Ⅱ</text>
+    <rect x="101" y="128" width="67" height="42" rx="21" fill="#352B3E"/><text x="135" y="156" text-anchor="middle" font-size="21" class="purple">↺</text>
+  </g>
+
+  <g transform="translate(1125 790)">
+    <text y="0" font-size="18" font-weight="700">Правила темы</text>
+    <text y="34" class="tiny muted">• Фиолетовый остаётся единственным активным акцентом</text>
+    <text y="61" class="tiny muted">• Поверхности различаются светлотой, без серых рамок</text>
+    <text y="88" class="tiny muted">• Белый используется для основного текста, не для больших фонов</text>
+    <text y="115" class="tiny muted">• Контраст текста и кнопок рассчитан для тёмного системного режима</text>
+  </g>
+  <text x="70" y="1060" font-size="15" class="muted">Proposal D1 · automatic System appearance · approved light theme remains unchanged</text>
+</svg>

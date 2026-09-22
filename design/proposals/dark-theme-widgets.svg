@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="760" viewBox="0 0 760 760">
+<defs>
+ <linearGradient id="accent" x1="0" x2="1"><stop stop-color="#9B45F5"/><stop offset="1" stop-color="#C47DFF"/></linearGradient>
+ <filter id="s"><feDropShadow dx="0" dy="14" stdDeviation="17" flood-color="#050307" flood-opacity=".55"/></filter>
+ <style>text{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",Arial,sans-serif;fill:#F8F5FB}.m{fill:#AAA0B4}.p{fill:#C279FF}</style>
+</defs>
+<rect width="760" height="760" fill="#0E0B12"/>
+<text x="46" y="60" font-size="28" font-weight="750">Виджеты · тёмная тема</text>
+<text x="46" y="89" font-size="15" class="m">Тот же timeline, белый текст и один фиолетовый акцент.</text>
+<g transform="translate(46 125)" filter="url(#s)">
+ <rect width="668" height="280" rx="34" fill="#211A29" stroke="#41324F"/>
+ <text x="30" y="42" font-size="20" font-weight="700">Мировые часы</text>
+ <line x1="145" y1="77" x2="145" y2="238" stroke="#A75AF0" stroke-width="4"/>
+ <g><text x="30" y="106" font-size="27" font-weight="650">11:20</text><circle cx="145" cy="98" r="9" fill="#B965FF"/><text x="175" y="96" font-size="19" font-weight="650">Lisbon</text><text x="175" y="119" font-size="12" class="m">WEST · UTC+01:00</text><text x="626" y="106" text-anchor="end" font-size="16" class="p">0 ч</text><line x1="175" y1="139" x2="626" y2="139" stroke="#3B2D47"/></g>
+ <g transform="translate(0 72)"><text x="30" y="106" font-size="27" font-weight="650">12:20</text><circle cx="145" cy="98" r="9" fill="#B965FF"/><text x="175" y="96" font-size="19" font-weight="650">CEST</text><text x="175" y="119" font-size="12" class="m">UTC+02:00</text><text x="626" y="106" text-anchor="end" font-size="16" class="p">+1 ч</text><line x1="175" y1="139" x2="626" y2="139" stroke="#3B2D47"/></g>
+ <g transform="translate(0 144)"><text x="30" y="106" font-size="27" font-weight="650">13:20</text><circle cx="145" cy="98" r="9" fill="#B965FF"/><text x="175" y="96" font-size="19" font-weight="650">EEST</text><text x="175" y="119" font-size="12" class="m">UTC+03:00</text><text x="626" y="106" text-anchor="end" font-size="16" class="p">+2 ч</text></g>
+</g>
+<g transform="translate(46 452)" filter="url(#s)">
+ <rect width="310" height="260" rx="34" fill="#211A29" stroke="#41324F"/>
+ <text x="26" y="42" font-size="18" font-weight="700">Мировые часы</text>
+ <text x="25" y="112" font-size="31" font-weight="650">11:20</text><line x1="151" y1="72" x2="151" y2="194" stroke="#A75AF0" stroke-width="4"/><circle cx="151" cy="131" r="10" fill="#B965FF"/>
+ <text x="180" y="112" font-size="18" font-weight="650">Lisbon</text><text x="180" y="137" font-size="11" class="m">WEST · UTC+01…</text><text x="180" y="171" font-size="15" class="p">0 ч</text>
+</g>
+<g transform="translate(404 452)" filter="url(#s)">
+ <rect width="310" height="260" rx="34" fill="#211A29" stroke="#41324F"/>
+ <text x="26" y="42" font-size="18" font-weight="700">Таймер</text>
+ <text x="26" y="105" font-size="38" font-weight="650">00:12:30</text>
+ <rect x="26" y="126" width="258" height="7" rx="4" fill="#3A3044"/><rect x="26" y="126" width="145" height="7" rx="4" fill="url(#accent)"/>
+ <rect x="26" y="161" width="120" height="58" rx="29" fill="url(#accent)"/><text x="86" y="199" text-anchor="middle" font-size="25">Ⅱ</text>
+ <rect x="164" y="161" width="120" height="58" rx="29" fill="#352B3E"/><text x="224" y="199" text-anchor="middle" font-size="28" class="p">↺</text>
+</g>
+</svg>

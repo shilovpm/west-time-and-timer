@@ -1,0 +1,10 @@
+build/
+dist/
+.DS_Store
+*.xcuserstate
+xcuserdata/
+*.xcarchive
+*.dmg
+*.p12
+*.mobileprovision
+Config/Signing.local.xcconfig

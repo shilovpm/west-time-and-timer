@@ -91,9 +91,9 @@ struct TimerProvider: TimelineProvider {
     }
 }
 
-/// WidgetKit archives custom views before the desktop host applies its
-/// appearance. Resolve the approved palette from the host environment so the
-/// full-color widget follows the actual system light or dark appearance.
+/// The macOS desktop can select a light WidgetKit archive while the system
+/// appearance is Dark. Consult the Mac's current appearance when choosing
+/// colors, while retaining WidgetKit's dark variant for other contexts.
 struct WidgetPalette {
     let surface: Color
     let ink: Color
@@ -101,7 +101,8 @@ struct WidgetPalette {
     let rule: Color
 
     init(_ colorScheme: ColorScheme) {
-        if colorScheme == .dark {
+        let isDark = colorScheme == .dark || UserDefaults.standard.string(forKey: "AppleInterfaceStyle") == "Dark"
+        if isDark {
             surface = Color(.sRGB, red: 0.129, green: 0.102, blue: 0.161, opacity: 1)
             ink = Color(.sRGB, red: 0.973, green: 0.961, blue: 0.984, opacity: 1)
             violet = Color(.sRGB, red: 0.761, green: 0.475, blue: 1.000, opacity: 1)

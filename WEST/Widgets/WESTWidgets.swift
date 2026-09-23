@@ -91,8 +91,33 @@ struct TimerProvider: TimelineProvider {
     }
 }
 
+/// WidgetKit archives custom views before the desktop host applies its
+/// appearance. Resolve the approved palette from the host environment so the
+/// full-color widget follows the actual system light or dark appearance.
+struct WidgetPalette {
+    let surface: Color
+    let ink: Color
+    let violet: Color
+    let rule: Color
+
+    init(_ colorScheme: ColorScheme) {
+        if colorScheme == .dark {
+            surface = Color(.sRGB, red: 0.129, green: 0.102, blue: 0.161, opacity: 1)
+            ink = Color(.sRGB, red: 0.973, green: 0.961, blue: 0.984, opacity: 1)
+            violet = Color(.sRGB, red: 0.761, green: 0.475, blue: 1.000, opacity: 1)
+            rule = Color(.sRGB, red: 0.255, green: 0.196, blue: 0.310, opacity: 1)
+        } else {
+            surface = Color(.sRGB, red: 1.000, green: 1.000, blue: 1.000, opacity: 1)
+            ink = Color(.sRGB, red: 0.090, green: 0.075, blue: 0.120, opacity: 1)
+            violet = Color(.sRGB, red: 0.545, green: 0.173, blue: 0.961, opacity: 1)
+            rule = Color(.sRGB, red: 0.875, green: 0.788, blue: 1.000, opacity: 1)
+        }
+    }
+}
+
 struct ClockWidgetView: View {
     @Environment(\.widgetFamily) var family
+    @Environment(\.colorScheme) private var colorScheme
     let entry: WESTEntry
     var limit: Int { family == .systemLarge ? 6 : family == .systemMedium ? 3 : 1 }
     var language: String { entry.state.preferences.language }
@@ -106,13 +131,14 @@ struct ClockWidgetView: View {
         }
     }
     var body: some View {
+        let palette = WidgetPalette(colorScheme)
         Group {
             if entry.error {
                 Link(Localization.text("Open app to check saved data", language: language), destination: URL(string: "westtime://clocks")!)
-                    .font(.caption).foregroundStyle(AppPalette.violet)
+                    .font(.caption).foregroundStyle(palette.violet)
             } else if records.isEmpty {
                 Link(Localization.text("Add clock", language: language), destination: URL(string: "westtime://clocks")!)
-                    .foregroundStyle(AppPalette.violet)
+                    .foregroundStyle(palette.violet)
             } else if family == .systemSmall {
                 VStack(alignment: .leading, spacing: 8) {
                     Text(Localization.text("World clocks", language: language)).font(.system(size: 13, weight: .bold))
@@ -131,23 +157,25 @@ struct ClockWidgetView: View {
                 }
             }
         }
-        .foregroundStyle(AppPalette.ink)
+        .foregroundStyle(palette.ink)
         .environment(\.locale, Locale(identifier: Localization.resolved(language)))
         .environment(\.layoutDirection, ["ar", "ur"].contains(Localization.resolved(language)) ? .rightToLeft : .leftToRight)
-        .containerBackground(AppPalette.surface, for: .widget)
+        .containerBackground(palette.surface, for: .widget)
         .widgetURL(URL(string: "westtime://clocks"))
     }
     var missingEntry: some View {
         Link(Localization.text("Removed clock", language: language), destination: URL(string: "westtime://clocks")!)
-            .font(.caption).foregroundStyle(AppPalette.violet)
+            .font(.caption).foregroundStyle(WidgetPalette(colorScheme).violet)
     }
 }
 
 struct SmallWidgetClockRow: View {
+    @Environment(\.colorScheme) private var colorScheme
     let record: ClockRecord
     let preferences: Preferences
     let date: Date
     var body: some View {
+        let palette = WidgetPalette(colorScheme)
         HStack(spacing: 6) {
             WidgetClockText(record: record, preferences: preferences, date: date)
                 .font(.system(size: preferences.seconds ? 15 : 20, weight: .semibold, design: .rounded))
@@ -159,7 +187,7 @@ struct SmallWidgetClockRow: View {
                 Text(verbatim: widgetMetadata(record, date)).font(.system(size: 8)).foregroundStyle(.secondary)
                     .lineLimit(1).minimumScaleFactor(0.58)
                 Text(verbatim: Localization.difference(record.difference(at: date), language: preferences.language))
-                    .font(.system(size: 10, weight: .medium)).foregroundStyle(AppPalette.violet.opacity(0.72)).lineLimit(1)
+                    .font(.system(size: 10, weight: .medium)).foregroundStyle(palette.violet.opacity(0.72)).lineLimit(1)
             }.frame(maxWidth: .infinity, alignment: .leading)
         }
         .frame(height: 68)
@@ -167,6 +195,7 @@ struct SmallWidgetClockRow: View {
 }
 
 struct WidgetClockTimeline: View {
+    @Environment(\.colorScheme) private var colorScheme
     let records: [(String, ClockRecord?)]
     let preferences: Preferences
     let date: Date
@@ -185,7 +214,7 @@ struct WidgetClockTimeline: View {
                                    isFirst: index == 0, isLast: index == records.count - 1)
                 } else {
                     Link(Localization.text("Removed clock", language: language), destination: URL(string: "westtime://clocks")!)
-                        .font(.caption).foregroundStyle(AppPalette.violet).frame(maxWidth: .infinity, minHeight: rowHeight)
+                        .font(.caption).foregroundStyle(WidgetPalette(colorScheme).violet).frame(maxWidth: .infinity, minHeight: rowHeight)
                 }
             }
         }
@@ -193,6 +222,7 @@ struct WidgetClockTimeline: View {
 }
 
 struct WidgetClockRow: View {
+    @Environment(\.colorScheme) private var colorScheme
     let record: ClockRecord
     let preferences: Preferences
     let date: Date
@@ -205,6 +235,7 @@ struct WidgetClockRow: View {
     var differenceWidth: CGFloat { medium ? 48 : 64 }
     var spacing: CGFloat { medium ? 6 : 7 }
     var body: some View {
+        let palette = WidgetPalette(colorScheme)
         HStack(spacing: spacing) {
             WidgetClockText(record: record, preferences: preferences, date: date)
                 .font(.system(size: preferences.seconds ? (medium ? 13 : 15) : (medium ? 19 : 21), weight: .semibold, design: .rounded))
@@ -217,13 +248,13 @@ struct WidgetClockRow: View {
                     .lineLimit(1).minimumScaleFactor(0.58)
             }.frame(maxWidth: .infinity, alignment: .leading)
             Text(verbatim: Localization.difference(record.difference(at: date), language: preferences.language))
-                .font(.system(size: medium ? 8.5 : 9, weight: .medium)).foregroundStyle(AppPalette.violet.opacity(0.72))
+                .font(.system(size: medium ? 8.5 : 9, weight: .medium)).foregroundStyle(palette.violet.opacity(0.72))
                 .frame(width: differenceWidth, alignment: .trailing).lineLimit(1).minimumScaleFactor(0.58)
         }
         .frame(height: rowHeight)
         .overlay(alignment: .bottomTrailing) {
             if !isLast {
-                Rectangle().fill(AppPalette.rule).frame(height: 1)
+                Rectangle().fill(palette.rule).frame(height: 1)
                     .padding(.leading, timeWidth + spacing + 14 + spacing)
             }
         }
@@ -234,19 +265,21 @@ struct WidgetClockRow: View {
 /// The line and node share one fixed column, so their horizontal centers can
 /// never drift apart when the neighbouring text columns resize.
 struct WidgetTimelineRail: View {
+    @Environment(\.colorScheme) private var colorScheme
     let isFirst: Bool
     let isLast: Bool
     let rowHeight: CGFloat
     var body: some View {
+        let violet = WidgetPalette(colorScheme).violet
         ZStack {
             if isFirst && isLast {
-                Rectangle().fill(AppPalette.violet).frame(width: 2)
+                Rectangle().fill(violet).frame(width: 2)
             } else {
-                Rectangle().fill(AppPalette.violet).frame(width: 2)
+                Rectangle().fill(violet).frame(width: 2)
                     .padding(.top, isFirst ? rowHeight / 2 : 0)
                     .padding(.bottom, isLast ? rowHeight / 2 : 0)
             }
-            Circle().fill(AppPalette.violet).frame(width: 13, height: 13)
+            Circle().fill(violet).frame(width: 13, height: 13)
         }
         .frame(width: 14, height: rowHeight)
     }
@@ -275,19 +308,21 @@ struct WidgetClockText: View {
 
 struct TimerWidgetView: View {
     @Environment(\.widgetRenderingMode) private var renderingMode
+    @Environment(\.colorScheme) private var colorScheme
     let entry: WESTEntry
     var body: some View {
         let timer = entry.state.timer
         let phase = timer.effectivePhase(at: entry.date)
         let language = entry.state.preferences.language
+        let palette = WidgetPalette(colorScheme)
         VStack(alignment: .leading, spacing: 10) {
-            Text(Localization.text("Timer", language: language)).font(.system(size: 13, weight: .bold)).foregroundStyle(AppPalette.ink)
+            Text(Localization.text("Timer", language: language)).font(.system(size: 13, weight: .bold)).foregroundStyle(palette.ink)
             if entry.error {
                 Link(Localization.text("Open app to check saved data", language: language), destination: URL(string: "westtime://timer")!)
-                    .font(.caption).foregroundStyle(AppPalette.violet)
+                    .font(.caption).foregroundStyle(palette.violet)
             } else {
                 Countdown(timer: timer, now: entry.date)
-                    .font(.system(size: 32, weight: .semibold, design: .rounded)).foregroundStyle(AppPalette.ink)
+                    .font(.system(size: 32, weight: .semibold, design: .rounded)).foregroundStyle(palette.ink)
                     .minimumScaleFactor(0.65).lineLimit(1)
                 timerProgress(timer, phase)
                 HStack(spacing: 10) {
@@ -297,14 +332,14 @@ struct TimerWidgetView: View {
                             .widgetAccentedRenderingMode(.fullColor)
                             .frame(maxWidth: .infinity, minHeight: 34)
                     }
-                    .buttonStyle(WidgetActionButtonStyle(primary: true, renderingMode: renderingMode))
+                    .buttonStyle(WidgetActionButtonStyle(primary: true, renderingMode: renderingMode, palette: palette))
                     .accessibilityLabel(Localization.text(phase == .running ? "Pause" : phase == .paused ? "Continue" : phase == .finished ? "Repeat" : "Start", language: language))
                     Link(destination: timerURL(.reset)) {
                         Image(systemName: "arrow.counterclockwise")
                             .widgetAccentedRenderingMode(.fullColor)
                             .frame(maxWidth: .infinity, minHeight: 34)
                     }
-                    .buttonStyle(WidgetActionButtonStyle(primary: false, renderingMode: renderingMode))
+                    .buttonStyle(WidgetActionButtonStyle(primary: false, renderingMode: renderingMode, palette: palette))
                     .accessibilityLabel(Localization.text("Reset", language: language))
 #else
                     Button(intent: TimerActionIntent(command: phase == .running ? .pause : phase == .paused ? .resume : phase == .finished ? .repeatTimer : .start, timer: timer)) {
@@ -312,28 +347,28 @@ struct TimerWidgetView: View {
                             .widgetAccentedRenderingMode(.fullColor)
                             .frame(maxWidth: .infinity, minHeight: 34)
                     }
-                    .buttonStyle(WidgetActionButtonStyle(primary: true, renderingMode: renderingMode))
+                    .buttonStyle(WidgetActionButtonStyle(primary: true, renderingMode: renderingMode, palette: palette))
                     .accessibilityLabel(Localization.text(phase == .running ? "Pause" : phase == .paused ? "Continue" : phase == .finished ? "Repeat" : "Start", language: language))
                     Button(intent: TimerActionIntent(command: .reset, timer: timer)) {
                         Image(systemName: "arrow.counterclockwise")
                             .widgetAccentedRenderingMode(.fullColor)
                             .frame(maxWidth: .infinity, minHeight: 34)
                     }
-                    .buttonStyle(WidgetActionButtonStyle(primary: false, renderingMode: renderingMode))
+                    .buttonStyle(WidgetActionButtonStyle(primary: false, renderingMode: renderingMode, palette: palette))
                     .accessibilityLabel(Localization.text("Reset", language: language))
 #endif
                 }
             }
             Spacer(minLength: 0)
         }
-        .containerBackground(AppPalette.surface, for: .widget)
+        .containerBackground(palette.surface, for: .widget)
         .widgetURL(URL(string: "westtime://timer"))
     }
     @ViewBuilder func timerProgress(_ timer: TimerState, _ phase: TimerPhase) -> some View {
         if phase == .running, let deadline = timer.deadline {
-            ProgressView(timerInterval: entry.date...max(entry.date, deadline), countsDown: true).labelsHidden().tint(AppPalette.violet)
+            ProgressView(timerInterval: entry.date...max(entry.date, deadline), countsDown: true).labelsHidden().tint(WidgetPalette(colorScheme).violet)
         } else {
-            ProgressView(value: timer.duration > 0 ? timer.remaining(at: entry.date) / timer.duration : 0).labelsHidden().tint(AppPalette.violet)
+            ProgressView(value: timer.duration > 0 ? timer.remaining(at: entry.date) / timer.duration : 0).labelsHidden().tint(WidgetPalette(colorScheme).violet)
         }
     }
 #if LOCAL_WIDGET_STATIC
@@ -346,6 +381,7 @@ struct TimerWidgetView: View {
 struct WidgetActionButtonStyle: ButtonStyle {
     let primary: Bool
     let renderingMode: WidgetRenderingMode
+    let palette: WidgetPalette
 
     func makeBody(configuration: Configuration) -> some View {
         let fullColor = renderingMode == .fullColor
@@ -354,7 +390,7 @@ struct WidgetActionButtonStyle: ButtonStyle {
             .foregroundStyle(primary && fullColor ? Color.white : Color.primary)
             .background(
                 primary && fullColor
-                    ? AppPalette.violet.opacity(configuration.isPressed ? 0.78 : 1)
+                    ? palette.violet.opacity(configuration.isPressed ? 0.78 : 1)
                     : Color.primary.opacity(configuration.isPressed ? 0.12 : primary ? 0.20 : 0.10),
                 in: Capsule()
             )

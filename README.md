@@ -14,7 +14,7 @@ The local build is not Developer ID signed or notarized. On first launch after d
 
 | System | Status |
 | --- | --- |
-| Apple Silicon Mac, macOS 15 or newer | Supported. The release artifact is an arm64 DMG; version 1.0.5 was built on macOS 27.0. |
+| Apple Silicon Mac, macOS 15 or newer | Supported. The release artifact is an arm64 DMG; version 1.0.6 was built on macOS 27.0. |
 | Intel Mac | Not supported by the current release artifact. No universal or x86_64 DMG is provided. |
 | macOS 14 or older | Not supported. The deployment target is macOS 15. |
 | iPhone, iPad, Windows, or Linux | Not supported. This is a native macOS app. |
@@ -58,7 +58,7 @@ You can also open `WEST.xcodeproj`, select the shared `WEST` scheme, and Run. A 
 
 ## Verification
 
-See [`docs/VERIFICATION.md`](docs/VERIFICATION.md). On the current machine, the full Xcode build, 19 core checks, installed app, approved layout, time-zone rendering, extension signature and registration, App Intents metadata, and discovery of all four variants in the macOS widget gallery pass. Version 1.0.5 also checks the Mac's current system appearance when resolving widget colors. The notification-banner icon and per-widget clock selection remain documented follow-ups.
+See [`docs/VERIFICATION.md`](docs/VERIFICATION.md). On the current machine, the full Xcode build, 19 core checks, installed app, approved layout, time-zone rendering, extension signature and registration, App Intents metadata, and discovery of all four variants in the macOS widget gallery pass. Version 1.0.6 uses adaptive color assets for widgets; the user confirmed both widgets follow the light → dark → light system appearance sequence. The notification-banner icon and per-widget clock selection remain documented follow-ups.
 
 ## Privacy
 

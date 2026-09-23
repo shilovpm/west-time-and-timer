@@ -2,6 +2,14 @@
 
 A small native macOS 15+ app with one deadline-based timer, a six-item world-clock list, and WidgetKit widgets. The approved violet interface follows the system light or dark appearance. Everything works offline.
 
+## Interface previews
+
+Approved static design previews; the displayed times are examples. The current app uses dropdowns for custom timer input.
+
+![WEST timer and world clocks main screen](design/proposals/main-screen-approval-candidate-v2.png)
+
+![WEST timer and world-clock widget family](design/proposals/widget-approval-candidate-v2.png)
+
 ## Local installation (no Apple Developer account)
 
 Download `WEST-time-and-timer-local-arm64.dmg` from [GitHub Releases](https://github.com/shilovpm/west-time-and-timer/releases), open it, drag the app to Applications, and launch it. The app bundle includes the timer, clocks, WidgetKit extension, App Intents, localizations, and all runtime resources; users do not need Xcode, Homebrew, Swift, or any third-party dependency.

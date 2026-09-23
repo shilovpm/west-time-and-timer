@@ -6,13 +6,15 @@ A small native macOS 15+ app with one deadline-based timer, a six-item world-clo
 
 Download `WEST-time-and-timer-local-arm64.dmg` from [GitHub Releases](https://github.com/shilovpm/west-time-and-timer/releases), open it, drag the app to Applications, and launch it. The app bundle includes the timer, clocks, WidgetKit extension, App Intents, localizations, and all runtime resources; users do not need Xcode, Homebrew, Swift, or any third-party dependency.
 
+When replacing an older local build, quit WEST first. If the widgets still show the previous appearance after installation, log out of macOS and back in to restart the cached widget extension. Your saved clocks and timer remain in Application Support.
+
 The local build is not Developer ID signed or notarized. On first launch after downloading it, macOS may require **System Settings → Privacy & Security → Open Anyway**. This approval is a Gatekeeper step for an unidentified developer, not a missing dependency. The current DMG requires macOS 15 or newer and an Apple Silicon Mac.
 
 ### Compatibility
 
 | System | Status |
 | --- | --- |
-| Apple Silicon Mac, macOS 15 or newer | Supported. The release artifact is an arm64 DMG; version 1.0.4 was built and verified on macOS 27.0. |
+| Apple Silicon Mac, macOS 15 or newer | Supported. The release artifact is an arm64 DMG; version 1.0.5 was built on macOS 27.0. |
 | Intel Mac | Not supported by the current release artifact. No universal or x86_64 DMG is provided. |
 | macOS 14 or older | Not supported. The deployment target is macOS 15. |
 | iPhone, iPad, Windows, or Linux | Not supported. This is a native macOS app. |
@@ -56,7 +58,7 @@ You can also open `WEST.xcodeproj`, select the shared `WEST` scheme, and Run. A 
 
 ## Verification
 
-See [`docs/VERIFICATION.md`](docs/VERIFICATION.md). On the current machine, the full Xcode build, 19 core checks, installed app, approved layout, time-zone rendering, extension signature and registration, App Intents metadata, and discovery of all four variants in the macOS widget gallery pass. Version 1.0.4 resolves widget colors from WidgetKit's appearance environment; the notification-banner icon and per-widget clock selection remain documented follow-ups.
+See [`docs/VERIFICATION.md`](docs/VERIFICATION.md). On the current machine, the full Xcode build, 19 core checks, installed app, approved layout, time-zone rendering, extension signature and registration, App Intents metadata, and discovery of all four variants in the macOS widget gallery pass. Version 1.0.5 also checks the Mac's current system appearance when resolving widget colors. The notification-banner icon and per-widget clock selection remain documented follow-ups.
 
 ## Privacy
 

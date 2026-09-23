@@ -2,13 +2,29 @@
 
 A small native macOS 15+ app with one deadline-based timer, a six-item world-clock list, and WidgetKit widgets. The approved violet interface follows the system light or dark appearance. Everything works offline.
 
-## Interface previews
+## Screenshots
 
-Approved static design previews; the displayed times are examples. The current app uses dropdowns for custom timer input.
+### App
 
-![WEST timer and world clocks main screen](design/proposals/main-screen-approval-candidate-v2.png)
+| Light appearance | Dark appearance |
+| --- | --- |
+| ![WEST app in light appearance](docs/screenshots/app_light.png) | ![WEST app in dark appearance](docs/screenshots/app_dark.png) |
 
-![WEST timer and world-clock widget family](design/proposals/widget-approval-candidate-v2.png)
+### World-clock widgets
+
+| Large · light | Large · dark |
+| --- | --- |
+| ![Large world-clock widget in light appearance](docs/screenshots/big_widget_light.png) | ![Large world-clock widget in dark appearance](docs/screenshots/big_widget_dark.png) |
+
+| Medium · light | Medium · dark |
+| --- | --- |
+| ![Medium world-clock widget in light appearance](docs/screenshots/middle_widget_light.png) | ![Medium world-clock widget in dark appearance](docs/screenshots/middle_widget_dark.png) |
+
+### Timer widget
+
+| Light appearance | Dark appearance |
+| --- | --- |
+| ![Small timer widget in light appearance](docs/screenshots/small_widget_light.png) | ![Small timer widget in dark appearance](docs/screenshots/small_widget_dark.png) |
 
 ## Local installation (no Apple Developer account)
 

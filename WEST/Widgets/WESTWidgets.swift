@@ -91,28 +91,20 @@ struct TimerProvider: TimelineProvider {
     }
 }
 
-/// The macOS desktop can select a light WidgetKit archive while the system
-/// appearance is Dark. Consult the Mac's current appearance when choosing
-/// colors, while retaining WidgetKit's dark variant for other contexts.
+/// Keep widget colors adaptive in the archived view. WidgetKit prepares both
+/// appearances in advance, so choosing fixed RGB values while archiving can
+/// leave the opposite appearance with the wrong colors after a theme change.
 struct WidgetPalette {
     let surface: Color
     let ink: Color
     let violet: Color
     let rule: Color
 
-    init(_ colorScheme: ColorScheme) {
-        let isDark = colorScheme == .dark || UserDefaults.standard.string(forKey: "AppleInterfaceStyle") == "Dark"
-        if isDark {
-            surface = Color(.sRGB, red: 0.129, green: 0.102, blue: 0.161, opacity: 1)
-            ink = Color(.sRGB, red: 0.973, green: 0.961, blue: 0.984, opacity: 1)
-            violet = Color(.sRGB, red: 0.761, green: 0.475, blue: 1.000, opacity: 1)
-            rule = Color(.sRGB, red: 0.255, green: 0.196, blue: 0.310, opacity: 1)
-        } else {
-            surface = Color(.sRGB, red: 1.000, green: 1.000, blue: 1.000, opacity: 1)
-            ink = Color(.sRGB, red: 0.090, green: 0.075, blue: 0.120, opacity: 1)
-            violet = Color(.sRGB, red: 0.545, green: 0.173, blue: 0.961, opacity: 1)
-            rule = Color(.sRGB, red: 0.875, green: 0.788, blue: 1.000, opacity: 1)
-        }
+    init(_: ColorScheme) {
+        surface = AppPalette.surface
+        ink = AppPalette.ink
+        violet = AppPalette.violet
+        rule = AppPalette.rule
     }
 }
 
